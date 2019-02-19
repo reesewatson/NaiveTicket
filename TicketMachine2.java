@@ -10,7 +10,7 @@
  * @version 2008.03.30
  */
 import java.util.Scanner;
-public class TicketMachine
+public class TicketMachine2
 {
     
     // The price of a ticket from this machine.
@@ -26,16 +26,10 @@ public class TicketMachine
      * Note that the price must be greater than zero, and there
      * are no checks to ensure this.
      */
-    public TicketMachine()
+    public TicketMachine2(int ticketCost)
     {
         
-        price = 500;
-        balance = 0;
-        total = 0;
-    }
-    
-    public TicketMachine(int cost){
-        price = cost;
+        price = ticketCost;
         balance = 0;
         total = 0;
     }
@@ -62,24 +56,16 @@ public class TicketMachine
      */
     public void insertMoney(int amount)
     {
-        balance = balance + amount;
+        if(amount >= 0){
+            balance = balance + amount;}
+            
+        else {
+            System.out.println("Try again with a positive amount: " + amount);}
     }
     
-    public void display(){
-        System.out.println("Insert correct ticket price.");
-    }
-    
-    public void displayPrice(){
-        System.out.println("Your ticket cost is " + price + " cents.");
-    }
-    
-    /**
-     * Print a ticket.
-     * Update the total collected and
-     * reduce the balance to zero.
-     */
-    public void printTicket()
-    {
+    public void printTicket(){
+        int remainingBalance = price - balance;
+        if(remainingBalance <= 0){
         // Simulate the printing of a ticket.
         System.out.println("##################");
         System.out.println("# The BlueJ Line");
@@ -91,14 +77,26 @@ public class TicketMachine
         // Update the total collected with the balance.
         total = total + balance;
         // Clear the balance.
+        balance = balance - price;
+    }
+    
+    else{
+        System.out.println("Insert: " + remainingBalance + " cents.");
+        }
+    }
+    
+    public int refund(){
+        int amountOfRefund = balance;
         balance = 0;
+        return amountOfRefund;
     }
     
-    public void whenEmpty(){
-        total = 0;
+    public int empty(){
+    int emptyMachine = total;
+    total = 0;
+    return emptyMachine;
     }
     
-    public void setNewPrice(int updatedPrice){
-        price = updatedPrice;
-    }
 }
+    
+    
